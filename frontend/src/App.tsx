@@ -164,38 +164,66 @@ const App: React.FC = () => {
                   <div className="form-inputs-cover">
                       <div className="form-input-cover">
                         <h3>Country</h3>
-                        <div className="flex gap-4">
-                          <input type="text" placeholder='Country' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white w-full' />
-                        </div>
+                        <select 
+                          name="country"
+                          value={formData.country}
+                          title='countries'
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Select Country</option>
+                          {countries.map((country, index) => (
+                            <option key={index} value={country}>{country}</option>
+                          ))}
+                        </select>
+                        {errors.country && <span className="error-message">{errors.country}</span>}
+                    
                       </div>
                       <div className="form-input-cover">
                         <h3 className='text-white text-[0.9rem]'>Password</h3>
-                        <input type="password" placeholder='Password' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
+                        <input 
+                          type="password" 
+                          name="password"
+                          placeholder='Password' 
+                          value={formData.password}
+                          onChange={handleInputChange}
+                        />
+                        {errors.password && <span className="error-message">{errors.password}</span>}
+                    
                       </div>
                   </div>
-                  <div className='flex flex-col mt-5 gap-2'>
-                    <h3 className='text-white text-center font-light text-[0.8rem]'>By signing up you are opting in for all marketing from Propel Capital, such as SMS, Whatsapp or Email.</h3>
-                    <div className="flex gap-1 w-full items-center justify-center">
-                      <label className="container text-white text-[0.72rem] font-semibold">
-                        <input type="checkbox"  title='T&Cs' name="T&Cs" id="T&Cs" className='bg-[#FFD66D] bg-none checked:bg-[#FFD66D]' />
-                        <span className="checkmark mr-2 max-md:-ml-9"></span>
-                        I agree to the <span className='text-[#FFD66D]'>T&Cs</span> of this platform.<span className='text-red-700'>*</span> 
+                  <div className='form-bottom-cover'>
+                    <h3>By signing up you are opting in for all marketing from Propel Capital, such as SMS, Whatsapp or Email.</h3>
+                    <div className="container-back-1">
+                      <label className="container">
+                        <input 
+                          type="checkbox" 
+                          checked={acceptTerms}
+                          onChange={(e) => setAcceptTerms(e.target.checked)}
+                        />
+                        <span className="checkmark"></span>
+                        I agree to the <span className='aa'>T&Cs</span> of this platform.<span className='ab'>*</span> 
                       </label>
                     </div>
-                    <div className="flex gap-3 items-center justify-center">
-                      <label className="container text-white text-[0.72rem] font-semibold">
-                       <input type="checkbox" title='offer' name="offer" id="offer" className='bg-[#FFD66D] bg-none checked:bg-[#FFD66D]' />
-                        <span className="checkmark mr-2 max-md:-ml-9"></span>
-                        I agree to receiving special offers and messages from Propel.<span className='text-red-700'>*</span> 
+                    {errors.terms && <span className="error-message">{errors.terms}</span>}
+                    <div className="container-back-2">
+                      <label className="container">
+                        <input 
+                          type="checkbox" 
+                          checked={acceptOffers}
+                          onChange={(e) => setAcceptOffers(e.target.checked)}
+                        />
+                        <span className="checkmark"></span>
+                        I agree to receiving special offers and messages from Propel.<span className='ab'>*</span> 
                       </label>
                     </div>
+                    {errors.offers && <span className="error-message text-center">{errors.offers}</span>}
                   </div>
-                  <div className="flex items-center w-full justify-center my-8 max-md:my-2">
-                    <button className='bg-[#FFD66D] w-[50%] p-4 rounded-xl max-md:w-[80%]'>Sign Up</button>
+                  <div className="button-cover">
+                    <button type="submit" className='btn'>Sign Up</button>
                   </div>
-                  <div className="flex items-center w-full justify-center gap-2 font-light text-[0.8rem]">
-                    <h3 className=' text-white'>Already have an account?</h3>
-                    <a href="" title='sign-in' className='font-semibold text-white'>Sign In</a>
+                  <div className="signin-cover">
+                    <h3>Already have an account?</h3>
+                    <a href="" title='sign-in'>Sign In</a>
                   </div>
               </form>
             </div>

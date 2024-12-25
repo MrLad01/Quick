@@ -70,6 +70,9 @@ input:focus{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
 /* Hide the browser's default checkbox */
@@ -79,6 +82,16 @@ input:focus{
   cursor: pointer;
   height: 0;
   width: 0;
+  background-color: #FFD66D;
+}
+.container input:checked{
+  background-color: #FFD66D;
+}
+.container .aa{
+  color: #FFD66D;
+}
+.container .ab{
+  color: #b91c1c;
 }
 
 /* Create a custom checkbox */
@@ -91,6 +104,7 @@ input:focus{
   width: 12px;
   background-color: #110718;
   border: 1px solid #FFD66D;
+  margin-right: 0.5rem;
 }
 
 
@@ -127,7 +141,7 @@ input:focus{
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow-y: auto;
+  overflow-y: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -170,14 +184,15 @@ input:focus{
 }
 .back-cover{
   display: flex;
+  background-color: #291036;
   width: 100%;
   height: 98vh;
   align-items: center;
   justify-content: center;
   overflow-y: auto;
-  padding-top: 74vh;
-  padding-bottom: 5rem;
-  position: absolute;
+  padding-top: 84vh;
+  padding-bottom: 18vh;
+  position: relative;
   top: 0;
   left: 0;
 }
@@ -189,6 +204,7 @@ input:focus{
   padding-bottom: 0.75rem;
   padding-left: 0.7rem;
   padding-right: 0.7rem;
+  margin-bottom: 3rem;
   gap: 1.5rem;
   position: absolute;
   z-index: 1;
@@ -258,7 +274,7 @@ input:focus{
   color: white;
   font-size: 0.9rem;
 }
-.form-input-cover input{
+.form-input-cover input, .form-input-cover select{
   padding: 1rem 1.25rem;
   font-size: 0.86rem;
   border-radius: 0.5rem;
@@ -277,6 +293,63 @@ input:focus{
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
+.form-bottom-cover{
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.25rem;
+  gap: 0.5rem;
+}
+.form-bottom-cover h3{
+  color: white;
+  text-align: center;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+.test-center{
+  text-align: center;
+}
+.container-back-1{
+  display: flex;
+  gap: 0.25rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.container-back-2{
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.button-cover{
+  display: flex;
+  align-items: center;
+  width: 100;
+  justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.btn{
+  background-color: #FFD66D;
+  width: 50%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+.signin-cover{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: white;
+}
+.signin-cover a{
+  font-weight: 600;
+}
+
 
 
 @media not all and (min-width: 900px) {
@@ -292,10 +365,23 @@ input:focus{
     flex-direction: column;
     justify-content: start;
   }
+  .form-back-1{
+    width: 94%;
+  }
   .form-divide div{
     width: 8rem;
   }
   .form-inputs-cover{
     flex-direction: column;
+  }
+  .checkmark{
+    margin-left: -2.25rem;
+  }
+  .button-cover{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .btn{
+    width: 80%;
   }
 }
