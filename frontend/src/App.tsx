@@ -1,83 +1,178 @@
+import React, { useState } from 'react';
 import logo from './assets/Screenshot 2024-12-25 174038.png'
 
-function App() {
+interface FormData {
+  firstName: string;
+  lastName: string;
+  countryCode: string;
+  phone: string;
+  email: string;
+  country: string;
+  password: string;
+}
+
+interface FormErrors {
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  country?: string;
+  password?: string;
+  terms?: string;
+  offers?: string;
+}
+
+
+const App: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
+    firstName: '',
+    lastName: '',
+    countryCode: '+44',
+    phone: '',
+    email: '',
+    country: '',
+    password: '',
+  });
+
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [acceptTerms, setAcceptTerms] = useState<boolean>(false);
+  const [acceptOffers, setAcceptOffers] = useState<boolean>(false);
+
+  const countries: string[] = [
+    "Albania", "Algeria", "American Samoa", "Andorra", "Angola",
+    "United Kingdom", "United States", "Canada", "Australia"
+  ];
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+    
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Invalid email format';
+    if (!formData.country) newErrors.country = 'Country is required';
+    if (!formData.password) newErrors.password = 'Password is required';
+    else if (formData.password.length < 8) newErrors.password = 'Password must be at least 8 characters';
+    if (!acceptTerms) newErrors.terms = 'You must accept the Terms and Conditions';
+    if (!acceptOffers) newErrors.offers = 'You must accept to receive offers';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (validateForm()) {
+      console.log('Form submitted:', formData);
+    }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
     <>
-      <div className='relative w-full h-[100vh]  overflow-y-auto flex items-center justify-center'>
-        <div className="background w-full h-full bg-[#291036] absolute top-0 left-0 -z-1">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute inset-0 bg-[#291036] opacity-100">
-              <div className="absolute w-full h-full bob-texture"  
+      <div className='general-container'>
+        <div className="background">
+          <div className="back-cover-1">
+            <div className="bob-container">
+              <div className="bob-texture"  
               />
             </div>            
-            <div className="absolute w-[45%] h-[100vh] rounded-full 
-              bg-gradient-to-tr from-[#FFD66D] to-[#33212B] opacity-45
-              blur-[120px] -bottom-[25%] -left-[2%] bg-blend-hard-light shadow-inner" />
+            <div className="bob" />
           </div>
         </div>
 
-        <div className="flex w-full h-[98vh] items-center justify-center overflow-y-auto pt-[74vh] pb-20 absolute top-0 left-0">
-          <div className="w-[64%] max-md:w-[94%] rounded-3xl bg-[#1A0B26] pt-4 pb-3 px-[0.7rem] gap-6 relative z-1 flex flex-col">
-            <div className="flex w-full items-center justify-center">
+        <div className="back-cover">
+          <div className="form-back-1">
+            <div className="form-image-cover">
               <img src={logo} alt="logo" />
             </div>
-            <div className='w-full h-full bg-[#110718] rounded-3xl flex py-6 px-6 flex-col items-center'>
-              <h2 className='text-white text-[2.1rem] font-medium'>Sign Up</h2>
-              <h4 className='text-white font-light text-[0.84rem]' >Welcome Back! Sign in to continue</h4>
-              <div className='flex gap-4 items-center my-4'>
-                <div className='h-0.5 w-96 max-md:w-32 bg-[#291036]'></div>
-                <h3 className='text-white font-normal text-[1rem]'>Or</h3>
-                <div className='h-0.5 w-96 max-md:w-32 bg-[#291036]'></div>
+            <div className='form-back-2'>
+              <h2 className='form-head'>Sign Up</h2>
+              <h4 className='form-welcome' >Welcome Back! Sign in to continue</h4>
+              <div className='form-divide'>
+                <div></div>
+                <h3>Or</h3>
+                <div></div>
               </div>
-              <form className='flex flex-col w-full gap-4'>
-                  <div className="flex max-md:flex-col gap-4">
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>First Name</h3>
-                        <input type="text" placeholder='First Name' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
+              <form onSubmit={handleSubmit} className='form'>
+                  <div className="form-inputs-cover">
+                      <div className="form-input-cover">
+                        <h3>First Name</h3>
+                        <input 
+                          type="text" 
+                          name="firstName"
+                          placeholder='First Name' 
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                        />
+                        {errors.firstName && <span className="error-message">{errors.firstName}</span>}
                       </div>
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Last Name</h3>
-                        <input type="text" placeholder='Last Name' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
+                      <div className="form-input-cover">
+                        <h3>Last Name</h3>
+                        <input 
+                          type="text" 
+                          name="lastName"
+                          placeholder='Last Name' 
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                        />
+                        {errors.lastName && <span className="error-message">{errors.lastName}</span>}           
                       </div>
                   </div>
-                  <div className="flex max-md:flex-col gap-4">
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Phone Number</h3>
+                  <div className="form-inputs-cover">
+                      <div className="form-input-cover">
+                        <h3>Phone Number</h3>
                         <div className="flex gap-4">
-                          <input type="text" placeholder='+44' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white w-[30%]' />
-                          <input type="text" placeholder='Contact Number' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white w-full' />
+                          <input 
+                            type="text" 
+                            name="countryCode"
+                            placeholder='+44' 
+                            value={formData.countryCode}
+                            onChange={handleInputChange}
+                            className='phone-1' 
+                          />
+                          <input 
+                            type="text" 
+                            name="phone"
+                            placeholder='Contact Number' 
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            className='phone-2' 
+                          />
                         </div>
+                        {errors.phone && <span className="error-message">{errors.phone}</span>}
+                    
                       </div>
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Email</h3>
-                        <input type="email" placeholder='Email Address' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
+                      <div className="form-input-cover">
+                        <h3>Email</h3>
+                        <input 
+                          type="email" 
+                          name="email"
+                          placeholder='Email Address' 
+                          value={formData.email}
+                          onChange={handleInputChange}
+                        />
+                        {errors.email && <span className="error-message">{errors.email}</span>}
+                      
                       </div>
                   </div>
-                  <div className="flex max-md:flex-col gap-4">
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Country</h3>
+                  <div className="form-inputs-cover">
+                      <div className="form-input-cover">
+                        <h3>Country</h3>
                         <div className="flex gap-4">
                           <input type="text" placeholder='Country' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white w-full' />
                         </div>
                       </div>
-                      <div className="flex flex-col w-full gap-4">
+                      <div className="form-input-cover">
                         <h3 className='text-white text-[0.9rem]'>Password</h3>
                         <input type="password" placeholder='Password' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
                       </div>
                   </div>
-                  {/* <div className="flex max-md:flex-col gap-4">
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Country</h3>
-                        <div className="flex gap-4">
-                          <input type="text" placeholder='Contact Number' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white w-full' />
-                        </div>
-                      </div>
-                      <div className="flex flex-col w-full gap-4">
-                        <h3 className='text-white text-[0.9rem]'>Password</h3>
-                        <input type="password" placeholder='Password' className='px-5 py-4 text-[0.86rem] rounded-lg bg-[#292030] outline-[#FFD66D] border-0 text-white' />
-                      </div>
-                  </div> */}
                   <div className='flex flex-col mt-5 gap-2'>
                     <h3 className='text-white text-center font-light text-[0.8rem]'>By signing up you are opting in for all marketing from Propel Capital, such as SMS, Whatsapp or Email.</h3>
                     <div className="flex gap-1 w-full items-center justify-center">
@@ -107,15 +202,15 @@ function App() {
           </div>
         </div>
         
-        <div className="footer w-full absolute bottom-0 z-10 bg-[#1A0B26] px-5 text-[0.8rem] max-md:text-[0.7rem] py-2 flex justify-between items-center max-md:items-start max-md:flex-col max-md:justify-start">
-          <div className='flex max-lg:flex-col max-lg:gap-0 gap-2'>
-            <h3 className='text-white'>&copy; 2024 Propel  Capital Group Limited. All rights reserved.</h3>
-            <div className="flex gap-2 text-[#FFD66D]">
+        <div className="footer">
+          <div className='flex-2 '>
+            <h3 className=''>&copy; 2024 Propel  Capital Group Limited. All rights reserved.</h3>
+            <div className="flex-2">
               <a href="" title="T&Cs">T&Cs</a>
               <a href="" title="Privacy Policy">Privacy Policy</a>
             </div>
           </div>
-          <h3 className='text-white'>162-164 High Street, Reyleigh, Essex, England, SS67BS</h3>
+          <h3 className=''>162-164 High Street, Reyleigh, Essex, England, SS67BS</h3>
         </div>
       </div>
     </>

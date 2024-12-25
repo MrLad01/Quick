@@ -10,15 +10,37 @@
 }
 .footer{
   font-weight: 500;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  background-color: #1A0B26;
+  padding: 8px 20px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer h3{
+  color: white;
+}
+.footer a{
+  color: #FFD66D;
 }
 .bob-texture{
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: '4px 4px'
+  background-size: '4px 4px';
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 input:focus{
   outline: 1px solid #FFD66D;
 }
-
+.flex-2{
+  display: flex;
+  gap: 0.5rem;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
@@ -100,4 +122,180 @@ input:focus{
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+.general-container{
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.background{
+  width: 100%;
+  height: 100%;
+  background-color: #291036;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+.back-cover-1{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.bob-container{
+  position: absolute;
+  inset: 0;
+  background-color: #291036;
+  opacity: 1;
+}
+.bob{
+  position: absolute;
+  width: 45%;
+  height: 100vh;
+  border-radius: 50%;
+  --tw-blur: blur(120px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+  bottom: -25%;
+  left: -2%;
+  background-blend-mode: hard-light;
+  --tw-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: inset 0 2px 4px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background: linear-gradient(to top right, #FFD66D,#33212B);;
+  opacity: 0.45;
+}
+.back-cover{
+  display: flex;
+  width: 100%;
+  height: 98vh;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding-top: 74vh;
+  padding-bottom: 5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.form-back-1{
+  width: 64%;
+  border-radius: 1.5rem;
+  background-color: #1A0B26;
+  padding-top: 1rem;
+  padding-bottom: 0.75rem;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
+  gap: 1.5rem;
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+.form-image-cover{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.form-back-2{
+  width: 100%;
+  height: 100%;
+  background-color: #110718;
+  border-radius: 1.5rem;
+  display: flex;
+  padding: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+}
+.form-head{
+  color: white;
+  font-size: 2.1rem;
+  font-weight: 500;
+}
+.form-welcome{
+  color: white;
+  font-weight: 300;
+  font-size: 0.84rem;
+}
+.form-divide{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.form-divide div{
+  height: 0.125rem;
+  width: 24rem;
+  background-color: #291036;
+}
+.form-divide h3{
+  color: white;
+  font-weight: 400;
+  font-size: 1rem;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+.form-inputs-cover{
+  display: flex;
+  gap: 1rem;
+}
+.form-input-cover{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+.form-input-cover h3{
+  color: white;
+  font-size: 0.9rem;
+}
+.form-input-cover input{
+  padding: 1rem 1.25rem;
+  font-size: 0.86rem;
+  border-radius: 0.5rem;
+  background-color: #292030;
+  border: none;
+  color: white;
+}
+.form-input-cover .phone-1{
+  width: 30%;
+}
+.form-input-cover .phone-2{
+  width: 100%;
+}
+.error-message{
+  color: #ef4444;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+
+@media not all and (min-width: 900px) {
+  .footer > div{
+    flex-direction: column;
+    gap: 0;
+  }
+}
+@media not all and (min-width: 600px) {
+  .footer {
+    font-size: 0.7rem /* 11.2px */;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+  }
+  .form-divide div{
+    width: 8rem;
+  }
+  .form-inputs-cover{
+    flex-direction: column;
+  }
 }
